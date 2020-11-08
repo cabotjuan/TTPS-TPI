@@ -12,7 +12,11 @@ module RN
         ]
 
         def call(name:, **)
-          warn "TODO: Implementar creación del cuaderno de notas con nombre '#{name}'.\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
+          if File.exist?("#{Dir.home}/.my-rns/#{name}")
+            warn "El libro #{name} ya existe."
+          else
+            Dir.mkdir("#{Dir.home}/.my-rns/#{name}")
+          end
         end
       end
 
@@ -30,7 +34,15 @@ module RN
 
         def call(name: nil, **options)
           global = options[:global]
-          warn "TODO: Implementar borrado del cuaderno de notas con nombre '#{name}' (global=#{global}).\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
+          if global
+            Dir.rmdir("#{Dir.home}/.my-rns/global")
+            warn "'global' eliminado."
+          elsif File.exist?("#{Dir.home}/.my-rns/#{name}")
+            Dir.rmdir("#{Dir.home}/.my-rns/#{name}")
+            warn "'#{name}' eliminado."
+          else
+            warn "No se pudo eliminar el cuaderno '#{name}' (No existe). "
+          end
         end
       end
 
@@ -42,7 +54,8 @@ module RN
         ]
 
         def call(*)
-          warn "TODO: Implementar listado de los cuadernos de notas.\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
+          Dir.chdir("#{Dir.home}/.my-rns")
+          puts Dir.glob('*').select {|f| File.directory? f}
         end
       end
 
@@ -59,7 +72,11 @@ module RN
         ]
 
         def call(old_name:, new_name:, **)
-          warn "TODO: Implementar renombrado del cuaderno de notas con nombre '#{old_name}' para que pase a llamarse '#{new_name}'.\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
+          begin
+            File.rename("#{Dir.home}/.my-rns/#{old_name}", "#{Dir.home}/.my-rns/#{new_name}")  
+          rescue 
+            warn 'No se pudo renombrar.'
+          end
         end
       end
     end
