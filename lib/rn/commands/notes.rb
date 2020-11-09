@@ -15,7 +15,19 @@ module RN
 
         def call(title:, **options)
           book = options[:book]
-          warn "TODO: Implementar creación de la nota con título '#{title}' (en el libro '#{book}').\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
+          begin
+            if title[/\W/].nil?
+              if book
+                File.new("#{MY_RNS_PATH}/#{book}/#{title}.rn","w")
+              else
+                File.new("#{MY_RNS_PATH}/global/#{title}.rn","w")
+              end
+            else
+              warn 'Titulo invalido.'
+            end
+          rescue
+            warn "No se pudo crear la nota #{title}.rn"
+          end
         end
       end
 
@@ -33,7 +45,15 @@ module RN
 
         def call(title:, **options)
           book = options[:book]
-          warn "TODO: Implementar borrado de la nota con título '#{title}' (del libro '#{book}').\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
+          begin
+            if book
+              File.delete("#{MY_RNS_PATH}/#{book}/#{title}.rn") 
+            else
+              File.delete("#{MY_RNS_PATH}/global/#{title}.rn")
+            end
+          rescue
+            warn "No se pudo eliminar #{title}.rn"
+          end
         end
       end
 
@@ -70,7 +90,19 @@ module RN
 
         def call(old_title:, new_title:, **options)
           book = options[:book]
-          warn "TODO: Implementar cambio del título de la nota con título '#{old_title}' hacia '#{new_title}' (del libro '#{book}').\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
+          begin
+            if (old_title[/\W/].nil?) && (new_title[/\W/].nil?)
+              if book && File.exist?("#{MY_RNS_PATH}/#{book}")
+                File.rename("#{MY_RNS_PATH}/#{book}/#{old_title}.rn", "#{MY_RNS_PATH}/#{book}/#{new_title}.rn")  
+              else
+                File.rename("#{MY_RNS_PATH}/global/#{old_title}.rn", "#{MY_RNS_PATH}/global/#{new_title}.rn")  
+              end
+            else
+              warn 'Nombre Invalido.'
+            end
+          rescue => exception
+            warn "No se pudo renombrar #{old_title}.rn"
+          end
         end
       end
 
@@ -90,7 +122,19 @@ module RN
         def call(**options)
           book = options[:book]
           global = options[:global]
-          warn "TODO: Implementar listado de las notas del libro '#{book}' (global=#{global}).\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
+
+          if global
+            Dir.chdir("#{MY_RNS_PATH}/global")
+            puts Dir.glob('*')
+          elsif book && File.exist?("#{MY_RNS_PATH}/#{book}")
+            Dir.each_child("#{MY_RNS_PATH}/#{book}") { |nota| puts nota }
+          elsif not book
+            Dir.each_child("#{MY_RNS_PATH}") do |b|
+              Dir.new("#{MY_RNS_PATH}/#{b}").each_child() { |nota| puts nota }             
+            end
+          else
+            warn "El Cuaderno #{book} no existe."
+          end
         end
       end
 

@@ -1,6 +1,8 @@
 module RN
   module Commands
     module Books
+      require 'fileutils'
+
       class Create < Dry::CLI::Command
         desc 'Create a book'
 
@@ -12,10 +14,14 @@ module RN
         ]
 
         def call(name:, **)
-          if File.exist?("#{Dir.home}/.my-rns/#{name}")
-            warn "El libro #{name} ya existe."
-          else
-            Dir.mkdir("#{Dir.home}/.my-rns/#{name}")
+          if name[/\W/].nil?
+            if File.exist?("#{Commands::MY_RNS_PATH}/#{name}")
+              warn "El libro #{name} ya existe."
+            else
+              Dir.mkdir("#{Commands::MY_RNS_PATH}/#{name}")
+            end
+          else 
+            warn 'Nombre invalido'
           end
         end
       end
@@ -31,14 +37,15 @@ module RN
           '"My book" # Deletes a book named "My book" and all of its notes',
           'Memoires  # Deletes a book named "Memoires" and all of its notes'
         ]
+  
 
         def call(name: nil, **options)
           global = options[:global]
           if global
-            Dir.rmdir("#{Dir.home}/.my-rns/global")
+            FileUtils.rm_r("#{MY_RNS_PATH}/global")
             warn "'global' eliminado."
-          elsif File.exist?("#{Dir.home}/.my-rns/#{name}")
-            Dir.rmdir("#{Dir.home}/.my-rns/#{name}")
+          elsif File.exist?("#{MY_RNS_PATH}/#{name}")
+            FileUtils.rm_r("#{MY_RNS_PATH}/#{name}")
             warn "'#{name}' eliminado."
           else
             warn "No se pudo eliminar el cuaderno '#{name}' (No existe). "
@@ -54,8 +61,7 @@ module RN
         ]
 
         def call(*)
-          Dir.chdir("#{Dir.home}/.my-rns")
-          puts Dir.glob('*').select {|f| File.directory? f}
+          Dir.each_child("#{MY_RNS_PATH}") {|cuaderno| puts cuaderno}
         end
       end
 
@@ -73,7 +79,11 @@ module RN
 
         def call(old_name:, new_name:, **)
           begin
-            File.rename("#{Dir.home}/.my-rns/#{old_name}", "#{Dir.home}/.my-rns/#{new_name}")  
+            if not new_name[/\W/].nil?
+              File.rename("#{MY_RNS_PATH}/#{old_name}", "#{MY_RNS_PATH}/#{new_name}")  
+            else
+              warn 'Nuevo nombre invalido'
+            end
           rescue 
             warn 'No se pudo renombrar.'
           end

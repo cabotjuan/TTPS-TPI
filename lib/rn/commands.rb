@@ -1,5 +1,8 @@
 module RN
   module Commands
+
+    MY_RNS_PATH = Pathname.new("#{Dir.home}/.my-rns")
+    
     autoload :Books, 'rn/commands/books'
     autoload :Notes, 'rn/commands/notes'
     autoload :Version, 'rn/commands/version'
