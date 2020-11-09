@@ -58,6 +58,8 @@ module RN
       end
 
       class Edit < Dry::CLI::Command
+
+        require 'tty-editor'
         desc 'Edit the content a note'
 
         argument :title, required: true, desc: 'Title of the note'
@@ -71,7 +73,13 @@ module RN
 
         def call(title:, **options)
           book = options[:book]
-          warn "TODO: Implementar modificación de la nota con título '#{title}' (del libro '#{book}').\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
+          if book && File.exist?("#{MY_RNS_PATH}/#{book}/#{title}.rn")
+            TTY::Editor.open("#{MY_RNS_PATH}/#{book}/#{title}.rn")
+          elsif not book && File.exist?("#{MY_RNS_PATH}/global/#{title}.rn")
+            TTY::Editor.open("#{MY_RNS_PATH}/#{book}/#{title}.rn")
+          else
+            warn "No se pudo abrir el archivo."
+          end
         end
       end
 
@@ -128,7 +136,7 @@ module RN
             puts Dir.glob('*')
           elsif book && File.exist?("#{MY_RNS_PATH}/#{book}")
             Dir.each_child("#{MY_RNS_PATH}/#{book}") { |nota| puts nota }
-          elsif not book
+          elsif (not book) && (not global)
             Dir.each_child("#{MY_RNS_PATH}") do |b|
               Dir.new("#{MY_RNS_PATH}/#{b}").each_child() { |nota| puts nota }             
             end
@@ -139,6 +147,9 @@ module RN
       end
 
       class Show < Dry::CLI::Command
+
+        require 'colorputs'
+
         desc 'Show a note'
 
         argument :title, required: true, desc: 'Title of the note'
@@ -151,8 +162,16 @@ module RN
         ]
 
         def call(title:, **options)
+
           book = options[:book]
-          warn "TODO: Implementar vista de la nota con título '#{title}' (del libro '#{book}').\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
+          if book && File.exist?("#{MY_RNS_PATH}/#{book}/#{title}.rn")
+            puts File.read("#{MY_RNS_PATH}/#{book}/#{title}.rn"), :cyan 
+          elsif not book && File.exist?("#{MY_RNS_PATH}/global/#{title}.rn")
+            puts File.read("#{MY_RNS_PATH}/#{book}/#{title}.rn"), :cyan
+          else
+            warn "No se pudo abrir el archivo."
+          end
+
         end
       end
     end
