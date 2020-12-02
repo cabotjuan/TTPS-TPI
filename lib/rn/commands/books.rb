@@ -1,11 +1,13 @@
 module RN
+  require 'rn/model'
   module Commands
     module Books
       require 'fileutils'
+      require 'colorputs'
 
       class Create < Dry::CLI::Command
         desc 'Create a book'
-
+      
         argument :name, required: true, desc: 'Name of the book'
 
         example [
@@ -14,14 +16,17 @@ module RN
         ]
 
         def call(name:, **)
-          if name[/\W/].nil?
-            if File.exist?("#{Commands::MY_RNS_PATH}/#{name}")
-              warn "El libro #{name} ya existe."
-            else
-              Dir.mkdir("#{Commands::MY_RNS_PATH}/#{name}")
-            end
-          else 
-            warn 'Nombre invalido'
+          book = Model::Book.fetch name
+          if not book
+              if Model::Book.validate_name name
+                new_book = Model::Book.new name
+                new_book.store
+                puts "✓ [📘#{new_book.name}] ha sido creado con éxito!", :green
+              else 
+                puts "✘ '#{name}' no es un nombre válido. Probá otro nombre!", :red
+              end
+          else
+              puts "✘ '#{name}' ya existe. Probá otro nombre!", :red
           end
         end
       end
@@ -41,14 +46,13 @@ module RN
 
         def call(name: nil, **options)
           global = options[:global]
-          if global
-            FileUtils.rm_r("#{MY_RNS_PATH}/global")
-            warn "'global' eliminado."
-          elsif File.exist?("#{MY_RNS_PATH}/#{name}")
-            FileUtils.rm_r("#{MY_RNS_PATH}/#{name}")
-            warn "'#{name}' eliminado."
+
+          book = Model::Book.fetch(name, global)
+          if not book 
+            puts "✘ No se pudo encontrar '#{name}'. Probá otro nombre!", :red
           else
-            warn "No se pudo eliminar el cuaderno '#{name}' (No existe). "
+            result = book.remove()
+            puts "✓ [📘#{result}] eliminado!", :green
           end
         end
       end
@@ -61,7 +65,10 @@ module RN
         ]
 
         def call(*)
-          Dir.each_child("#{MY_RNS_PATH}") {|cuaderno| puts cuaderno}
+          puts '📚', :cyan
+          Model::Book.get_all.map do |book|
+            puts "├ 📘 #{book.name}", :blue
+          end
         end
       end
 
@@ -78,14 +85,16 @@ module RN
         ]
 
         def call(old_name:, new_name:, **)
-          begin
-            if not new_name[/\W/].nil?
-              File.rename("#{MY_RNS_PATH}/#{old_name}", "#{MY_RNS_PATH}/#{new_name}")  
+          book = Model::Book.fetch(old_name)
+          if book
+            result = book.rename(new_name)
+            if result
+              puts "✓ #{result} ha sido renombrado!", :green
             else
-              warn 'Nuevo nombre invalido'
+              puts "✘ No se pudo renombrar el cuaderno. Nuevo nombre no válido.", :red
             end
-          rescue 
-            warn 'No se pudo renombrar.'
+          else
+            puts "✘ No se pudo encontrar el cuaderno. Probá otro nombre!", :red
           end
         end
       end
