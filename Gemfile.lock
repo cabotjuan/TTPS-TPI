@@ -7,8 +7,7 @@ GEM
       concurrent-ruby (~> 1.0)
     pastel (0.8.0)
       tty-color (~> 0.5)
-    redcarpet (3.5.0)
-    rufo (0.12.0)
+    redcarpet (3.5.1)
     tty-color (0.6.0)
     tty-cursor (0.7.1)
     tty-editor (0.6.0)
@@ -30,7 +29,6 @@ DEPENDENCIES
   colorputs
   dry-cli (~> 0.6)
   redcarpet
-  rufo
   tty-editor (~> 0.6.0)
 
 RUBY VERSION
