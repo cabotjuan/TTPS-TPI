@@ -1,5 +1,7 @@
 class User < ApplicationRecord
-  
+
+  after_create :set_global
+
   # (Auth) Devise Modules
 
   devise :database_authenticatable, :registerable,
@@ -13,4 +15,8 @@ class User < ApplicationRecord
 
   has_many :books
 
+  private
+    def set_global
+      self.books.create( name:'Global', global:true )
+    end
 end
