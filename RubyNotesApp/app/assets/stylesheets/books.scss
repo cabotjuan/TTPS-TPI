@@ -1,0 +1,20 @@
+@import 'mixins';
+
+.card-deck .card {
+  background-color: $base_secondary;
+  border-radius: 1rem;
+  max-width: 240px;
+  min-width: 200px;
+  img {
+    margin: auto;
+  }
+  .card-title {
+    text-align: center;
+  }
+}
+
+.books-dashboard {
+  background-color: $base_primary;
+  border-radius: 1rem;
+  padding: 2rem;
+}

@@ -1,0 +1,20 @@
+
+// Fonts
+
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap');
+
+$font_family: "Dancing Script", cursive;
+
+// Color Definitions
+
+$base_primary: #d32f2f;
+$base_secondary: #9a0007;
+$font_primary: #fbfbfb;
+$button_primary: #f3f5fb;
+
+.background-primary{
+  background-color: $base_primary;
+}
+.background-secondary{
+  background-color: $base_secondary;
+}

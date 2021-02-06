@@ -40,7 +40,7 @@ class NotesController < LayoutController
   private
     
   def set_book
-    @book = current_user.books.find(params[:id])
+    @book = current_user.books.find(params[:book_id])
   end
   
   def book_params

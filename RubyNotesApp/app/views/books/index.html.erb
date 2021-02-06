@@ -1,3 +1,10 @@
-<h1>Book Index</h1>
-
-<% render @books %>
+<h1>Books</h1>
+<div class='books-dashboard shadow'>
+  <%= link_to(new_book_path, method: :get, class: 'rounded-light-button float-right') do %>
+    <i class="fas fa-plus"></i>
+    New Book
+  <% end %>
+  <div class="card-deck">
+    <%= render @books %>
+  </div>
+</div>

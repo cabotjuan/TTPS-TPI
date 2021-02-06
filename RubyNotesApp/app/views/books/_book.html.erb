@@ -1,0 +1,17 @@
+<div class="card shadow m-2">
+  <%= link_to(book_notes_path(book), :method => :get) do %>
+    <div class="card-body">
+      <h5 class="card-title font-weight-bold"> <span> <%= book.name %> </span> </h5>
+    </div>
+  <% end %>
+  <div class="card-footer">
+    <% if not book.global? %>
+      <%= link_to(edit_book_path(book), :method => :get) do %>
+        <i class="fas fa-wrench"></i>
+      <% end %>
+      <%= link_to book_path(book), method: :delete, data: { confirm: "Are you sure to delete book?" } do %>
+        <i class="fas fa-trash"></i>
+      <% end %>
+    <% end %>
+  </div>
+</div>

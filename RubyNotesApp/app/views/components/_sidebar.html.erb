@@ -1,0 +1,40 @@
+<%= stylesheet_link_tag "sidebar", media: "all", "data-turbolinks-track" => "reload" %>
+
+<div class="sidebar d-flex flex-column flex-nowrap background-primary p-2" >
+  <div class="user-display d-inline-flex mb-3">
+    <div class="p-1 d-flex justify-content-center">
+      <%= image_tag "avatar-default.png", class: "img-fluid rounded-circle avatar" %>
+    </div>
+    <div class="p-1 justify-content-left" id='user-display-info'>
+      <span id="name"><%= current_user.email %></span> <br>
+    </div>
+  </div>
+  <div class="top-menu">
+    <div class="menu-item">
+      <%= link_to(books_path, method: :get, class: "nav-link") do %>
+        <i class="fas fa-book"></i>
+        <span>My Books</span></a>
+      <% end %>
+    </div>
+    <div class="menu-item">
+      <%= link_to(book_notes_path( current_user.books.where(global:true).first ), method: :get, class: "nav-link") do %>
+        <i class="fas fa-atlas"></i>
+        <span>Global Notes</span></a>
+      <% end %>
+    </div>
+  </div>
+  <div class="bottom-menu p-2" >
+    <div class="menu-item">
+      <%= link_to(edit_user_registration_path, method: :get, class: "nav-link") do %>
+        <i class="fas fa-wrench"></i>
+        <span> Account Settings </span>
+      <% end %>
+    </div>
+    <div class="menu-item">
+      <%= link_to(destroy_user_session_path, method: :delete, class: "nav-link") do %>
+        <i class="fas fa-sign-out-alt"></i>
+        <span> Sign out </span>
+      <% end %>
+    </div>
+  </div>
+</div>

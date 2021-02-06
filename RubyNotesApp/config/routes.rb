@@ -3,14 +3,17 @@ Rails.application.routes.draw do
   root 'books#index'
 
   # Auth routes scope
+
   devise_for :users 
-  resources :users , path: '' do
-    # Resources routes scope
-    collection do
-      resources :books, except: [:show] do
-          resources :notes
-      end
-    end
+
+  # Book routes scope
+  
+  resources :books, except: [:show] do
+    
+    # Book notes routes scope
+
+    resources :notes
+  
   end
 
 end
