@@ -1,31 +1,34 @@
 class NotesController < LayoutController
-  
+
   before_action :set_book
+  before_action :get_note, only: [ :show, :edit, :update, :destroy ]
 
   def index
     @notes = @book.notes
   end
   
   def new
-    @book = current_user.books.build
+    @note = @book.notes.build
   end
 
   def create
-    @book = current_user.books.build(book_params)
+    @note = @book.notes.build(note_params)
 
-    if @book.save
-      redirect_to books_path, notice: 'Post was successfully created.'
+    if @note.save
+      redirect_to book_notes_path, notice: 'Note was successfully created.'
     else
       render :new
     end
   end
 
+  def show;end
+
   def edit;end
 
   def update
     
-    if @book.update(book_params)
-      redirect_to books_path, notice: 'Post was successfully updated.'
+    if @note.update(note_params)
+      redirect_to books_note_path, notice: 'Note was successfully updated.'
     else
       render :edit
     end
@@ -33,8 +36,8 @@ class NotesController < LayoutController
   end
 
   def destroy
-    @book.destroy
-    redirect_to books_path, notice: 'Book was successfully destroyed.'
+    @note.destroy
+    redirect_to book_notes_path, notice: 'Note was successfully destroyed.'
   end
 
   private
@@ -42,9 +45,12 @@ class NotesController < LayoutController
   def set_book
     @book = current_user.books.find(params[:book_id])
   end
+  def get_note
+    @note = @book.notes.find(params[:id])
+  end
   
-  def book_params
-    params.require(:book).permit(:name, :global, :user_id)
+  def note_params
+    params.require(:note).permit(:name, :content, :book_id)
   end
 end
  

@@ -29,3 +29,36 @@
   font-weight: bolder;
   text-decoration: none;
 }
+
+@import 'mixins';
+
+.card-deck .card {
+  background-color: $base_secondary;
+  border-radius: 1rem;
+  max-width: 200px;
+  min-width: 200px;
+  a {
+    text-align: center;
+    padding: 1rem;
+  }
+  img {
+    margin: auto;
+  }
+  .card-title {
+    text-align: center;
+  }
+
+}
+
+.card:hover{
+  background-color:  lighten($base_secondary, 5%);
+}
+a:hover{
+  text-decoration: none;
+}
+
+.books-dashboard {
+  background-color: $base_primary;
+  border-radius: 1rem;
+  padding: 2rem;
+}

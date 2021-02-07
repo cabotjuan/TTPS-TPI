@@ -1,1 +1,10 @@
-<h1> Notes Index </h1>
+<h2> Notes in <%= @book.name %></h2>
+<div class='books-dashboard shadow'>
+  <%= link_to(new_book_note_path, method: :get, class: 'rounded-light-button float-right') do %>
+    <i class="fas fa-plus"></i>
+    New Note
+  <% end %>
+  <div class="card-deck">
+    <%= render @notes %>
+  </div>
+</div>

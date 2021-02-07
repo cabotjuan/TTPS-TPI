@@ -1,0 +1,17 @@
+<div class="card shadow m-2">
+
+  <%= link_to(book_note_path(@book, note), :method => :get) do %>
+    <%= image_tag "note.svg", class: 'img-fluid', width: 180 %>
+    <div class="card-body p-0">
+      <h5 class="card-title font-weight-bold"> <span> <%= note.name %> </span> </h5>
+    </div>
+  <% end %>
+  <div class="card-footer d-flex justify-content-center p-0">
+    <%= link_to(edit_book_note_path(@book, note), :method => :get) do %>
+      <i class="fas fa-wrench"></i>
+    <% end %>
+    <%= link_to book_note_path(@book, note), method: :delete, data: { confirm: "Are you sure to delete this note?" } do %>
+      <i class="fas fa-trash"></i>
+    <% end %>
+  </div>
+</div>
