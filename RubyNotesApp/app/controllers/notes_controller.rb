@@ -2,7 +2,7 @@ class NotesController < LayoutController
 
   before_action :set_book
   before_action :get_note, only: [ :show, :edit, :update, :destroy ]
-
+  
   def index
     @notes = @book.notes
   end
@@ -45,10 +45,11 @@ class NotesController < LayoutController
   def set_book
     @book = current_user.books.find(params[:book_id])
   end
+  
   def get_note
     @note = @book.notes.find(params[:id])
   end
-  
+
   def note_params
     params.require(:note).permit(:name, :content, :book_id)
   end

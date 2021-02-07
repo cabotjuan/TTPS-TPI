@@ -42,7 +42,7 @@ class BooksController < LayoutController
   def get_book
     @book = current_user.books.find(params[:id])
   end
-  
+
   def book_params
     params.require(:book).permit(:name, :global, :user_id)
   end
