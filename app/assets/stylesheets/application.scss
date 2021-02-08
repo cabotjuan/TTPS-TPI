@@ -1,0 +1,29 @@
+/*
+  *= require bootstrap
+  *= require_tree .
+  *= require_self
+*/
+
+$fa-font-path: '@fortawesome/fontawesome-free/webfonts';
+@import '@fortawesome/fontawesome-free/scss/fontawesome';
+@import '@fortawesome/fontawesome-free/scss/solid';
+@import '@fortawesome/fontawesome-free/scss/regular';
+@import '@fortawesome/fontawesome-free/scss/brands';
+@import '@fortawesome/fontawesome-free/scss/v4-shims';
+@import "mixins";
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color:$font_primary;
+  font-family: $font_family!important;
+}
+body {
+  font-family: $font_family!important;
+  background-color: $base_secondary;
+  color:$font_primary;
+  overflow-y: hidden;
+}

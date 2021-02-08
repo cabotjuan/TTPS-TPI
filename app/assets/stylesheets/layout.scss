@@ -1,0 +1,114 @@
+@import "mixins";
+
+.brand{
+  font-family: $font_family_branding!important;
+  padding: 1rem;
+  display: flex;
+  justify-content: flex-end;
+  a{
+    text-decoration: underline solid transparent;
+    transition: text-decoration 300ms;
+  }
+  a:hover{
+   font-weight: bolder;
+   text-decoration: underline solid #fff;
+ }
+}
+
+.main-container {
+  height: 100vh;
+
+  .row {
+    height: 100%;
+
+    .col-sidebar {
+      max-width: 250px;
+      max-height: 100%;
+    }
+  }
+}
+
+.rounded-light-button {
+  background-color: $base_secondary;
+  border-radius: 1.75rem;
+  color: $font_primary;
+  padding: 1rem;
+  margin: 0.5rem;
+  display: block;
+  width: max-content;
+  font-weight: lighter;
+}
+
+.rounded-light-button:hover{
+  font-weight: bolder;
+  text-decoration: none;
+}
+
+@import 'mixins';
+
+.card-deck .card {
+  background: none;
+  border:none;
+  max-width: 200px;
+  min-width: 200px;
+  a {
+    text-align: center;
+    padding: 1rem;
+  }
+  img {
+    margin: auto;
+  }
+  .card-title {
+    text-align: center;
+  }
+
+}
+
+.card:hover{
+  background-color:  lighten($base_secondary, 5%);
+}
+
+.card-footer{
+  border:none!important;
+  background:none!important;
+}
+
+a:hover{
+  text-decoration: none;
+}
+
+.books-dashboard {
+  background-color: $base_primary;
+  border-radius: 1rem;
+  padding: 2rem;
+}
+
+.card-background {
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position-x: center;
+  height: 180px;
+}
+.card-background:hover{
+  transform: rotate(6deg) scale(0.99);
+  filter: blur(0);
+}
+.card-title-note{
+  position: absolute;
+  left: 1rem;
+  transform: rotate(-6deg) scale(0.99);
+
+  span {
+    text-align: left;
+    display: inline-block;
+    color: $gray;
+    padding: 1rem;
+    vertical-align: middle;
+    text-decoration: underline;
+    font-size: 0.85rem;
+  }
+}
+
+.card:hover{
+  background: none;
+}

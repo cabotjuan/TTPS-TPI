@@ -1,0 +1,19 @@
+<h3> <span class='font-weight-bold'> <%= link_to @book.name, book_notes_path(@book) %> </span> / <%= @note.name %>   </h3>
+<div class='container-fluid'>
+  <div class="row justify-content-center">
+    <div class="col-md-6 note-container">
+      <div class='note-title'>
+        <%= @note.name %>
+      </div>
+      <%= @content %> 
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <%= link_to(edit_book_note_path(@book, @note), :method => :get) do %>
+      <i class="fas fa-pen m-4"></i>
+    <% end %>
+    <%= link_to book_note_path(@book, @note), method: :delete, data: { confirm: "Are you sure to delete this note?" } do %>
+      <i class="fas fa-trash m-4"></i>
+    <% end %>
+  </div>
+</div>

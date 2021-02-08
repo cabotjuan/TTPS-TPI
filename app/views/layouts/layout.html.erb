@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ruby Notes</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+  <body>
+    <% flash.each do | k, msg | %>
+      <%= content_tag :div, class: "alert alert-info" do %>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <%= msg %>
+      <% end %>
+    <% end %>
+
+
+    <div class="container-fluid main-container">
+      <div class="row">
+        <div class="p-2 col-sidebar">
+          <%= render 'components/sidebar' %>
+        </div>
+        <div class="col"
+          style='max-height: 100vh; overflow-y: auto;'>
+
+          <h1 class='brand'>
+            <%= link_to('Ruby Notes',root_url)%>
+          </h1>
+          <%= yield %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
