@@ -6,5 +6,8 @@
   <% end %>
   <div class="card-deck">
     <%= render @notes %>
+    <% if @notes.empty? %>
+      <h3 class='p-4 font-weight-light'> This book has no Notes added yet. Add a new one! </h3>
+    <% end %>
   </div>
 </div>

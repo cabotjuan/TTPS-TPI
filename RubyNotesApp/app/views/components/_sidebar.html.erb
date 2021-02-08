@@ -3,9 +3,9 @@
 <div class="sidebar d-flex flex-column flex-nowrap background-primary p-2" >
   <div class="user-display d-inline-flex mb-3">
     <div class="p-1 d-flex justify-content-center">
-      <%= image_tag "avatar-default.png", class: "img-fluid rounded-circle avatar" %>
+      <h3><i class="fas fa-user"></i></h3>
     </div>
-    <div class="p-1 justify-content-left" id='user-display-info'>
+    <div class="p-1 justify-content-left d-flex" id='user-display-info'>
       <span id="name"><%= current_user.email %></span> <br>
     </div>
   </div>

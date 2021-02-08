@@ -1,0 +1,30 @@
+@import "mixins";
+
+.CodeMirror{
+  background-color: $yellow!important;
+  color: black!important;
+}
+.editor-toolbar button{
+  color: $font_primary;
+}
+.editor-toolbar button:hover{
+  background: none!important;
+}
+
+.note-container {
+  background-color: $yellow;
+  padding: 2rem;
+  .note-title{
+    text-align: center;
+    width: 100%;
+    font-size: 1.5rem;
+    text-decoration: underline;
+  }
+}
+.note-container > * {
+    color: $gray!important;
+}
+
+.background-note {
+  background-image: url('note.png')!important;  
+}

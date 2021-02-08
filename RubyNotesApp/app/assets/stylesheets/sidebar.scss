@@ -43,8 +43,8 @@ span {
 
 #name {
   font-weight: bold;
-  line-height: 13px;
-  text-align: center;
+  display: flex;
+  align-self: center;
 }
 
 @media (max-width: 968px) {
@@ -54,6 +54,9 @@ span {
 
   #user-display-info,
   .menu-item span {
+    display: none;
+  }
+  #name{
     display: none;
   }
 }

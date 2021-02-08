@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
@@ -19,12 +20,14 @@
 
     <div class="container-fluid main-container">
       <div class="row">
-        <div class="col-3 p-2 col-sidebar">
+        <div class="p-2 col-sidebar">
           <%= render 'components/sidebar' %>
         </div>
-        <div class="col-9 p-2"
+        <div class="col"
           style='max-height: 100vh; overflow-y: auto;'>
-          <h1 style='text-align:end;'> Ruby Notes_<i class="fas fa-pen-alt" style='font-size:1.75rem'></i> </h1>
+          <h1 class='brand'>
+            <%= link_to('Ruby Notes',root_url)%>
+          </h1>
           <%= yield %>
         </div>
       </div>

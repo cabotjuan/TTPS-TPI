@@ -21,14 +21,16 @@ class NotesController < LayoutController
     end
   end
 
-  def show;end
+  def show
+    @content = Markdown.new(@note.content).to_html.html_safe
+  end
 
   def edit;end
 
   def update
     
     if @note.update(note_params)
-      redirect_to books_note_path, notice: 'Note was successfully updated.'
+      redirect_to book_notes_path, notice: 'Note was successfully updated.'
     else
       render :edit
     end

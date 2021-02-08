@@ -13,7 +13,7 @@ class User < ApplicationRecord
 
   # Associations
 
-  has_many :books
+  has_many :books, dependent: :destroy
 
   private
     def set_global

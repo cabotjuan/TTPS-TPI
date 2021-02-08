@@ -1,3 +1,12 @@
+<% if @note.errors.any? %>
+  <div class="alert alert-danger">
+    <ul>
+      <% @note.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
 <%= form_with model: [@book, @note], local: true do |form| %>
   <div class="form-group">
     <%= form.label :name %><br />
@@ -5,10 +14,20 @@
   </div>
   <div class="form-group">
     <%= form.label :content %><br />
-    <%= form.rich_text_area :content %>
+    <%= form.text_area :content %>
   </div>
   <div class="actions m-2">
     <%= form.submit "Confirm",class:"btn btn-primary" %>
   <%= link_to('Cancel', book_notes_url(@book), method: :get, class:"btn btn-secondary") %>                
   </div>
 <% end %>
+
+<link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css">
+<script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
+<script>
+var easyMDE = new EasyMDE({
+  element: document.getElementById('note_content'),
+  toolbar: ["bold", "italic", "heading","quote","link","ordered-list","unordered-list"],
+  status: false
+  });
+</script>

@@ -9,8 +9,4 @@ class Note < ApplicationRecord
 
   belongs_to :book
   
-  # Rich text content
-
-  has_rich_text :content
-
 end
