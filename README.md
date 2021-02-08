@@ -1,24 +1,13 @@
-# README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# Ruby Notes v2.0.0
+* System dependencies:
+    - MySQL
+    - Ruby version: 2.7.1
+    - Rails version: 6.1.1
+1. Install required Gems
+> bundle install
+2. DB Setup
+> rails db:create
+> rails db:migrate
+> rails db:seed
+3. Run (DEV)
+> rails s
